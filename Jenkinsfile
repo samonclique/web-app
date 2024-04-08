@@ -18,5 +18,17 @@ pipeline{
                 '''
             }
         }
+        stage('Sonarqube Analysis') {
+            environment {
+                    scannerhome = tool 'sonar5'
+                }
+            steps {
+                script  {
+                    withSonarQubeEnv(credentialsId: 'jenkins-sonar-key') {
+                        sh "${scannerhome}/bin/sonar-scanner -Dsonar.projectKey=web-app -Dsonar.projectName=sam-web-app"
+                    }
+                }
+            }
+        }
     }
 } 
