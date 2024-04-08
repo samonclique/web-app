@@ -38,4 +38,12 @@ pipeline{
             }
         }
     }
+    post {
+        success {
+            slackSend channel: 'success-group', color: '#055c06', message: "Build successful: ${currentBuild.fullDisplayName}"
+        }
+        failure {
+            slackSend channel: 'success-group', color: '#851205', message: "Build failed: ${currentBuild.fullDisplayName}"
+        }
+    }
 } 
